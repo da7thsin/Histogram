@@ -20,8 +20,8 @@ function randomData(num){
 function limits(){
   var data = this.data;
   var classLength = Math.ceil(1 + (3.322 * Math.log10(data.length))); //Sturge's formula for finding the total class length
-  var classWidth = Math.round((data[data.length - 1] - data[0])/classLength);
-  var classLimits = [];
+  var classWidth = Math.round((data[data.length - 1] - data[0])/classLength); //class interval
+  var classLimits = []; //stores class ranges
 
   var lowerLimit = data[0]; //starting lower limit class
   var upperLimit = lowerLimit + classWidth; //starting upper limit class
@@ -68,26 +68,4 @@ function FDT(data_size){
   this.frequency = dataFrequency.call(this);
 }
 
-FDT.prototype.percentFrequency = function(){
-  var percent = {};
-
-  function toPercent(value, total){
-    return Math.round((value/total * 100) * 10000)/10000;
-  }
-
-  for(var classes in this.frequency){
-    percent[classes] = toPercent(this.frequency[classes], this.data.length);
-  }
-
-  return percent;
-}
-
-var table = new FDT(100);
-var total = 0;
-var percent = table.percentFrequency();
-
-for(var items in percent){
-  total += percent[items];
-}
-
-console.log(Math.round(total));
+console.log(table);
