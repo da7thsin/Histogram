@@ -62,8 +62,8 @@ function dataFrequency(){
   return frequencies;
 }
 
-function FDT(data_size){
-  this.data = randomData(data_size);
+function FDT(data){
+  this.data = data;
   this.classes = limits.call(this);
   this.frequency = dataFrequency.call(this);
 }
@@ -80,21 +80,28 @@ function createCanvas(width, height){
 function drawGraph(){
   var canvas = createCanvas(500, 400);
   var ctx = canvas.getContext('2d');
-  var h = canvas.height;
-  var w = canvas.width;
-  var barPos = 0;
+  var height = 300;
+  var width = 400;
+  var pos = 100;
 
-  var table = new FDT(100);
+  var table = new FDT(randomData(100));
+
+  ctx.beginPath();
+  ctx.moveTo(100, 100);
+  ctx.lineTo(pos, height); //x-axis
+  ctx.lineTo(width, height); //y-axis
+  ctx.stroke();
+  ctx.closePath();
 
   for(var classes in table.frequency){
-    var freqVal = (table.frequency[classes]/table.data.length) * 100;
-    var barHeight = (freqVal/100) * h;
-    var barWidth = w/table.classes.length;
+    var barHeight = (table.frequency[classes]/table.data.length) * height;
+    var barWidth = width/table.classes.length;
 
-    ctx.fillStyle = 'rgb(50,255,90)';
-    ctx.fillRect(barPos, h, barWidth, -barHeight);
-    ctx.strokeRect(barPos, h, barWidth, -barHeight);
-    barPos+=barWidth;
+    console.log(barWidth);
+    ctx.fillStyle = 'rgb(80,90,255)';
+    ctx.fillRect(pos, height - 3, barWidth, -barHeight);
+    ctx.strokeRect(pos, height - 3, barWidth, -barHeight);
+    pos+=barWidth;
   }
 }
 
