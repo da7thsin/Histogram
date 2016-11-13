@@ -10,7 +10,7 @@ function random(a,b){
 function randomData(num){
   var data = [];
 
-  for(var i = 0; i < random(50,100); i++){
+  for(var i = 0; i < random(70,100); i++){
     data.push(random(1, num));
   }
 
