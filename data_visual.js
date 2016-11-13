@@ -82,25 +82,32 @@ function drawGraph(){
   var ctx = canvas.getContext('2d');
   var height = 300;
   var width = 400;
-  var pos = 100;
+  var pos = 105;
 
   var table = new FDT(randomData(100));
+  console.log(table);
 
   ctx.beginPath();
   ctx.moveTo(100, 100);
-  ctx.lineTo(pos, height); //x-axis
-  ctx.lineTo(width, height); //y-axis
+  ctx.lineTo(100, height);
+  ctx.lineTo(width, height);
   ctx.stroke();
   ctx.closePath();
 
+  ctx.font = '17px Sans-serif';
+  ctx.fillText('Number Range Classes', 130, height + 50);
+  ctx.font = '15px Sans-serif';
+  ctx.fillText('Frequency', 5, 200);
   for(var classes in table.frequency){
     var barHeight = (table.frequency[classes]/table.data.length) * height;
-    var barWidth = width/table.classes.length;
+    var barWidth = width/(table.classes.length * 1.5);
 
-    console.log(barWidth);
+
     ctx.fillStyle = 'rgb(80,90,255)';
-    ctx.fillRect(pos, height - 3, barWidth, -barHeight);
-    ctx.strokeRect(pos, height - 3, barWidth, -barHeight);
+    ctx.fillRect(pos, height - 5, barWidth, -barHeight);
+    ctx.strokeRect(pos, height - 5, barWidth, -barHeight);
+    ctx.font = '10px Monospace';
+    ctx.strokeText(classes, pos + 3, height + 15);
     pos+=barWidth;
   }
 }
