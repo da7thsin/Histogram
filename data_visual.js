@@ -71,8 +71,8 @@ function FDT(data){
 function createCanvas(x, y){
   var canvas = document.createElement('canvas');
   document.body.appendChild(canvas);
-  canvas.x = x;
-  canvas.y = y;
+  canvas.width = x;
+  canvas.height = y;
 
   return canvas;
 }
@@ -80,34 +80,34 @@ function createCanvas(x, y){
 function drawGraph(){
   var canvas = createCanvas(500, 400);
   var ctx = canvas.getContext('2d');
-  var y = 300; //vertical line location
-  var x = 400; //horizontal line location
+  var height = 300; //vertical line location
+  var width = 400; //horizontal line location
   var pos = 105; //draw position
 
   var table = new FDT(randomData(100)); //initialize table object
 
   ctx.beginPath();
   ctx.moveTo(100, 100); //move drawing origin
-  ctx.lineTo(100, y); //draw vertical-axis
-  ctx.lineTo(x, y); //draw horizontal-axis
+  ctx.lineTo(100, height); //draw vertical-axis
+  ctx.lineTo(width, height); //draw horizontal-axis
   ctx.stroke(); //draw
   ctx.closePath();
 
   ctx.font = '17px Sans-serif';
-  ctx.fillText('Number Range Classes', 130, y + 50);
+  ctx.fillText('Number Range Classes', 130, height + 50);
   ctx.font = '15px Sans-serif';
   ctx.fillText('Frequency', 5, 200);
 
   for(var classes in table.frequency){
-    var barHeight = (table.frequency[classes]/table.data.length) * y;
-    var barWidth = x/(table.classes.length * 1.5);
+    var barHeight = (table.frequency[classes]/table.data.length) * height;
+    var barWidth = width/(table.classes.length * 1.5);
 
 
     ctx.fillStyle = 'rgb(80,90,255)';
-    ctx.fillRect(pos, y - 5, barWidth, -barHeight); //draw rectangle
-    ctx.strokeRect(pos, y - 5, barWidth, -barHeight); //draw outline
+    ctx.fillRect(pos, height - 5, barWidth, -barHeight); //draw rectangle
+    ctx.strokeRect(pos, height - 5, barWidth, -barHeight); //draw outline
     ctx.font = '10px Monospace';
-    ctx.strokeText(classes, pos + 3, y + 15);
+    ctx.strokeText(classes, pos + 3, height + 15);
     pos+=barWidth; //move rectangle's position
   }
 }
