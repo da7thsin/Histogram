@@ -68,8 +68,9 @@ function FDT(data_size){
   this.frequency = dataFrequency.call(this);
 }
 
-function createCanvas(element, width, height){
-  var canvas = document.getElementById(element);
+function createCanvas(width, height){
+  var canvas = document.createElement('canvas');
+  document.body.appendChild(canvas);
   canvas.width = width;
   canvas.height = height;
 
@@ -77,7 +78,7 @@ function createCanvas(element, width, height){
 }
 
 function drawGraph(){
-  var canvas = createCanvas('canvas-element', 500, 400);
+  var canvas = createCanvas(500, 400);
   var ctx = canvas.getContext('2d');
   var h = canvas.height;
   var w = canvas.width;
