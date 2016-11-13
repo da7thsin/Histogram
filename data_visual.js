@@ -1,6 +1,6 @@
 function random(a,b){
   if(b == undefined){
-    return Math.floor(1 + Math.random() * a);
+    return Math.floor(Math.random() * a);
   }
   else{
     return Math.floor(a + Math.random() * b);
@@ -10,8 +10,8 @@ function random(a,b){
 function randomData(num){
   var data = [];
 
-  for(var i = 0; i < random(70,100); i++){
-    data.push(random(num));
+  for(var i = 0; i < random(50,100); i++){
+    data.push(random(1, num));
   }
 
   return data.sort(function(a,b){return a - b});
@@ -20,7 +20,7 @@ function randomData(num){
 function limits(){
   var data = this.data;
   var classLength = Math.ceil(1 + (3.322 * Math.log10(data.length))); //Sturge's formula for finding the total class length
-  var classWidth = Math.round((data[data.length - 1] - data[0])/classLength); //class interval
+  var classWidth = Math.round((data[data.length - 1] - data[0])/classLength); //class size interval
   var classLimits = []; //stores class ranges
 
   var lowerLimit = data[0]; //starting lower limit class
@@ -68,4 +68,33 @@ function FDT(data_size){
   this.frequency = dataFrequency.call(this);
 }
 
-console.log(table);
+function createCanvas(element, width, height){
+  var canvas = document.getElementById(element);
+  canvas.width = width;
+  canvas.height = height;
+
+  return canvas;
+}
+
+function drawGraph(){
+  var canvas = createCanvas('canvas-element', 500, 400);
+  var ctx = canvas.getContext('2d');
+  var h = canvas.height;
+  var w = canvas.width;
+  var barPos = 0;
+
+  var table = new FDT(100);
+
+  for(var classes in table.frequency){
+    var freqVal = (table.frequency[classes]/table.data.length) * 100;
+    var barHeight = (freqVal/100) * h;
+    var barWidth = w/table.classes.length;
+
+    ctx.fillStyle = 'rgb(50,255,90)';
+    ctx.fillRect(barPos, h, barWidth, -barHeight);
+    ctx.strokeRect(barPos, h, barWidth, -barHeight);
+    barPos+=barWidth;
+  }
+}
+
+drawGraph();
